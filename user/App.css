@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Exile&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Henny+Penny&family=Kaushan+Script&family=Poetsen+One&family=Road+Rage&family=Yesteryear&display=swap');
+
+.font1 {
+  font-family: "Poetsen One", sans-serif;
+}
+.font2 {
+  font-family: "Exile", system-ui;
+}
+.font3 {
+  font-family: "Yesteryear", cursive;
+
+}
+.font4 {
+  font-family: "Henny Penny", system-ui;
+
+}
+.font5 {
+  font-family: "Road Rage", sans-serif;
+
+}
+.font6 {
+  font-family: "Kaushan Script", cursive;
+
+}
+.font7{
+  font-family: "Google Sans Code", monospace;
+
+}
+.font8 {
+  font-family: "Audiowide", sans-serif;
+
+}
