@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import MenuIcon from '@mui/icons-material/Menu';
 import './App.css'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
@@ -17,10 +17,13 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { List, ListItem, ListItemText, Box, Drawer } from "@mui/material";
 import { Outlet } from "react-router";
+import { motion, AnimatePresence } from 'framer-motion';
+import Contact from "./component/Contact";
+import Home from "./component/Home";
 
 
 const isLoggedIn = true;
-const drawerWidth = 250;
+const drawerWidth = 200;
 
 const ProfileMenu = isLoggedIn ? [
     {
@@ -34,22 +37,18 @@ const ProfileMenu = isLoggedIn ? [
         icon: <SettingsIcon />
     },
     {
-        name: 'Login | Register',
-        path: '/register',
+        name: 'Login',
+        path: '/user/login',
         icon: <LoginIcon />
     },
 ] : [
     {
         name: 'Logout',
-        path: '/logout',
+        path: '/login',
         icon: <LogoutIcon />
     },
 ]
 const Navbarcomponent = [
-    {
-        name: 'Home',
-        path: '/home'
-    },
     {
         name: 'Contact',
         path: '/contact'
@@ -57,23 +56,27 @@ const Navbarcomponent = [
 ]
 const PlaylistMenu = [
     {
+        name: 'Home',
+        path: '/home'
+    },
+    {
         name: 'History',
         path: '/history',
         icon: <ManageHistoryIcon />
     },
     {
         name: 'Your Playlist',
-        path: '/playlist1',
+        path: 'playlist',
         icon: <ListIcon />
     },
     {
         name: 'Saved Songs',
-        path: '/saved-songs',
+        path: '/savedSongs',
         icon: <BookmarkBorderIcon />
     },
     {
         name: 'Liked Songs',
-        path: '/liked-songs',
+        path: '/likedSongs',
         icon: <FavoriteBorderIcon />
     },
 
@@ -82,6 +85,7 @@ const PlaylistMenu = [
 function Layout() {
     const [isOpen, setIsOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
+    const location = useLocation();
 
     const toggleMenu = () => {
         setIsOpen(prev => !prev);
@@ -92,8 +96,10 @@ function Layout() {
     };
 
     const drawer = (
-        <div className="bg-slate-400 text-white font1 h-screen">
+        <div className="bg-slate-400 text-white font1 h-screen ">
+            
              <div className="md:hidden relative z-50">
+                
                         <span
                             onClick={toggleMenu}
                             className="cursor-pointer relative size-8"
@@ -124,20 +130,11 @@ function Layout() {
                             </div>
                         )}
                     </div>
-                    <span className="flex flex-row text-3xl gap-2 font-bold font8 bg-slate-600 py-2 px-1">
-                        <img src="Music_tube.svg" alt="" className="size-12" /> Musictube
+                    <span className="flex flex-row text-3xl gap-2 font-bold font2 bg-slate-600 py-3 px-1">
+                        <img src="/Music_tube.svg" alt="" className="size-10" /> Pritube
                     </span>
             <Divider />
-            <List>
-                {Navbarcomponent.map((item, index) => (
-                    <ListItem key={index}>
-                        <ListItemText>
-                            <Link to={item.path} key={index}>{item.name}</Link>
-                        </ListItemText>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
+            
             <List>
                 {
                     PlaylistMenu.map((item, index) => (
@@ -149,12 +146,34 @@ function Layout() {
                     ))
                 }
             </List>
+            <Divider />
+            <List>
+                {Navbarcomponent.map((item, index) => (
+                    <ListItem key={index}>
+                        <ListItemText>
+                            <Link to={item.path} key={index}>{item.name}</Link>
+                        </ListItemText>
+                    </ListItem>
+                ))}
+            </List>
+            
         </div>
     )
     return (
-      <>
+        <>
+        
+      
+      
         <div className=" p-4 bg-slate-600 text-white overflow-hidden">
             <div className="flex flex-row justify-between items-center">
+            {/* <AnimatePresence mode="wait">
+      <motion.div
+  key={location.pathname}
+  initial={{ opacity: 0, x: -100 }}
+  animate={{ opacity: 1, x: 0 }}
+  exit={{ opacity: 0, x: 100 }}
+  transition={{ duration: 0.2, ease: 'backInOut' }}
+> */}
                 <Box
                     component="nav"
                     sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, }}
@@ -186,12 +205,14 @@ function Layout() {
                         {drawer}
                     </Drawer>
                 </Box>
+                {/* </motion.div>
+</AnimatePresence> */}
 
                
 
                 <div className="flex flex-row justify-end items-right gap-6">
                     <NotificationsNoneIcon className="size-10 my-1 cursor-pointer" />
-                    <input type="image" src="Avatar_profile.svg" alt="profile"
+                    <input type="image" src="/Avatar_profile.svg" alt="profile"
                         className="size-8 rounded-full cursor-pointer"
                         onMouseEnter={toggleMenu}
                     />
@@ -211,16 +232,19 @@ function Layout() {
             </div>
             
         </div>
-        <Box
+        
+        <Box 
         component="main"
         sx={{
           flexGrow: 1,
-          mt: 8,
           ml: { md: `${drawerWidth}px` }, 
         }}
       >
         <Outlet />
+        
       </Box>
+    
+        
         </>
         
     )
