@@ -1,5 +1,6 @@
 // src/redux/slices/playlistSlice.ts
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 export type Video = {
   id: number;

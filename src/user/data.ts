@@ -48,6 +48,12 @@ export const HomeMusics = [
       description: "This is the description of the music 6"
     }
   ]
+
+ export type ArtistType = {
+    id: string;
+    name: string;
+    thumbnail: string;
+  };
   
 export  const ArtistListData = [
     {

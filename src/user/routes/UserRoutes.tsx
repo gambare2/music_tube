@@ -9,7 +9,7 @@ import Layout from "../Layout";
 import Register from "../component/Authlogin/Register";
 import LikedSongs from "../component/LikedSongs";
 import SavedSongs from "../component/SavedSongs";
-import Playlist from "../component/Playlist";
+import Playlist from "../component/PLaylist"
 import Contact from "../component/Contact";
 import WelcomeScreen from "../../shared/pages/WelcomeScreen";
 import { ToastContainer } from "react-toastify";

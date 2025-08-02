@@ -1,4 +1,5 @@
-import React, { useState, ChangeEvent, FormEvent, MouseEvent } from 'react';
+import React, { useState } from 'react';
+import type { ChangeEvent, FormEvent, MouseEvent } from 'react';
 import axios from 'axios';
 import {
   TextField,
@@ -18,9 +19,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import AppRegistrationOutlinedIcon from '@mui/icons-material/AppRegistrationOutlined';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import { Link } from 'react-router';
-import BlobsBackground from '../../design/BlobsBackground';
+import BlobsBackground from '../../user/design/BlobsBackground';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -96,7 +97,7 @@ const Register: React.FC = () => {
       const res = await axios.post('http://localhost:5000/auth/register', form);
       toast.success(res.data.message);
       setTimeout(() => {
-        navigate('/home');
+        navigate('/admin/dashboard');
       }, 1000);
     } catch (error: any) {
       console.error('Error:', error.response || error.message);
@@ -242,4 +243,5 @@ const Register: React.FC = () => {
 };
 
 export default Register;
+
 

@@ -1,10 +1,11 @@
-import React, {
+import React,  {
   createContext,
   useContext,
   useState,
   useEffect,
-  ReactNode,
+ 
 } from "react";
+import type { ReactNode } from "react";
 
 export type Video = {
   id: number;

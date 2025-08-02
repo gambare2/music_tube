@@ -14,11 +14,9 @@ function Login() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  const handlelogin = async (provider) => {
-    window.location.href = `http://localhost:5000/auth/${provider}`
-  }
 
-  const handleForm = async (e) => {
+
+  const handleForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       const res = await axios.post('http://localhost:5000/auth/login', form);
@@ -82,7 +80,7 @@ function Login() {
                   Create account
                 </Link>
               </span>
-              <span className='border-b-2 border-slate-600 w-1/2 md:my-3 '></span>
+              {/* <span className='border-b-2 border-slate-600 w-1/2 md:my-3 '></span>
               <Button
                 sx={{
                   backgroundColor: 'white',
@@ -106,7 +104,7 @@ function Login() {
                 <span className='text-black font7 font-extralight'>Login with facebook</span>
                 <img src="icons8-facebook.svg" alt=""
                   className='md:ml-1 size-5' />
-              </Button>
+              </Button> */}
 
             </div>
 

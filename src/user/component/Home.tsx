@@ -1,8 +1,8 @@
-import { Box, Divider } from "@mui/material";
+import { Divider } from "@mui/material";
 import React from "react";
 import { Link } from "react-router";
 import { useState } from "react";
-import { HomeMusics, ArtistListData } from '../data'
+import { HomeMusics, ArtistListData, type ArtistType } from '../data'
 import Contact from "./Contact";
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -10,7 +10,10 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import { motion } from "framer-motion";
 
 
-const ArtistList = ({ Artist }) => {
+
+
+
+const ArtistList = ({ Artist }: { Artist: any }) => {
   const [visibleCount, setVisibleCount] = useState(5);
   const loadMore = () => setVisibleCount((prev) => prev + 9);
   const visibleArtists = Artist.slice(0, visibleCount);
@@ -18,7 +21,7 @@ const ArtistList = ({ Artist }) => {
   return (
     <div className="flex flex-col items-start w-full mb-4">
       <div className="flex flex-row gap-4 overflow-x-auto flex-nowrap w-full px-4">
-        {visibleArtists.map((artist, index) => (
+        {visibleArtists.map((artist: ArtistType, index: number) => (
           <Link
             to={`/artist/${artist.id}`}
             key={index}

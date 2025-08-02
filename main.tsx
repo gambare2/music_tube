@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, useLocation } from "react-router-dom";
-import { AuthProvider } from "./shared/context/Authcontext";
-import UserApp from "./user/App";
-import AdminApp from "./admin/App";
+import { AuthProvider } from "./src/shared/context/Authcontext";
+import UserApp from "./src/user/App";
+import AdminApp from "./src/admin/App";
 import "./index.css";
 import { Provider } from "react-redux";
-import store from "./shared/store/Store";
+import store from "./src/shared/store/Store";
 
 // App selector based on path
 const AppSelector = () => {

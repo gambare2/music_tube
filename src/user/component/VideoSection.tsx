@@ -6,7 +6,7 @@ import { useLiked } from "../../shared/context/Likedcontext";
 import { useSaved } from "../../shared/context/Savedcontext";
 // import { usePlaylist } from "../../shared/context/Playlistcontext";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../shared/store/Store";
+import type { RootState } from "../../shared/store/Store";
 import { addToPlaylist, removeFromPlaylist, createPlaylist } from '../../shared/slice/PlaylistSlice'
 import type { Playlist } from "../../shared/context/Playlistcontext";
 import { toast } from "react-toastify";
@@ -20,7 +20,7 @@ type Video = {
   videoUrl: string;
 };
 
-const generateUniqueId = () => "_" + Math.random().toString(36).substr(2, 9);
+// const generateUniqueId = () => "_" + Math.random().toString(36).substr(2, 9);
 
 
 const VideoSection: React.FC = () => {
@@ -56,13 +56,13 @@ const VideoSection: React.FC = () => {
   );
   const isInPlaylist = Boolean(currentPlaylist);
 
-  const createNewPlaylist = (name): Playlist => {
+  const createNewPlaylist = (name: string): Playlist => {
     const newPlaylist = {
       id: Date.now(),
       name,
       videos: [],
     };
-    dispatch(createPlaylist(name));
+    dispatch(createPlaylist({name: name}));
     return newPlaylist;
   };
   

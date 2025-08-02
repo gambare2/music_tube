@@ -1,6 +1,6 @@
 import React from "react";
 import UserRoutes from "./routes/UserRoutes";
-import { AuthProvider } from "../shared/context/AuthContext";
+import { AuthProvider } from "../shared/context/Authcontext";
 import { LikedProvider } from "../shared/context/Likedcontext";
 import { SavedProvider } from "../shared/context/Savedcontext";
 import { PlaylistProvider } from "../shared/context/Playlistcontext";

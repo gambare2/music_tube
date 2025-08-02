@@ -14,12 +14,9 @@ import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import ListIcon from '@mui/icons-material/List';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import { List, ListItem, ListItemText, Box, Drawer } from "@mui/material";
 import { Outlet } from "react-router";
-import { motion, AnimatePresence } from 'framer-motion';
-import Contact from "./component/Contact";
-import Home from "./component/Home";
+
 
 
 const isLoggedIn = true;
