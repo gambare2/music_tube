@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link } from "react-router";
 import MenuIcon from '@mui/icons-material/Menu';
 import './App.css'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
@@ -81,7 +81,7 @@ const PlaylistMenu = [
 function Layout() {
     const [isOpen, setIsOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
-    const location = useLocation();
+
 
     const toggleMenu = () => {
         setIsOpen(prev => !prev);
@@ -92,6 +92,7 @@ function Layout() {
     };
 
     const drawer = (
+        
         <div className="bg-slate-400 text-white font1 h-screen ">
             
              <div className="md:hidden relative z-50">
@@ -175,6 +176,7 @@ function Layout() {
                     sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, }}
                 >
                     <Drawer
+                    className={`${isClosing ? 'animate-slide-out' : ''}`}
                         variant="temporary"
                         open={isOpen}
                         onClose={handleDrawerClose}

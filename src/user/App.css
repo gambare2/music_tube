@@ -54,3 +54,11 @@
     transform: translateY(0);
   }
 }
+@keyframes slideOut {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+.animate-slide-out {
+  animation: slideOut 300ms ease-in-out;
+}
