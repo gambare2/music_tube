@@ -55,7 +55,7 @@ const Register: React.FC = () => {
     password: ''
   });
   const [formErrors, setFormErrors] = useState<FormErrors>({});
-  const [profile, setProfile] = useState<File | null>(null);
+  const [, setProfile] = useState<File | null>(null);
   const [profilePreview, setProfilePreview] = useState<string>(defaultImage);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
