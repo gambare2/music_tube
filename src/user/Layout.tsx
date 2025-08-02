@@ -1,5 +1,4 @@
 import { useState } from "react";
-import React from "react";
 import { Link, useLocation } from "react-router";
 import MenuIcon from '@mui/icons-material/Menu';
 import './App.css'

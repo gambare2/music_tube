@@ -1,6 +1,6 @@
-import React from 'react'
+
 import AdminRoutes from "./routes/AdminRoutes";
-import { AuthProvider } from "../shared/context/AuthContext";
+import { AuthProvider } from "../shared/context/Authcontext";
 
 function AdminApp() {
   return (

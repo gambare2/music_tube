@@ -1,5 +1,4 @@
 import { Divider } from "@mui/material";
-import React from "react";
 import { Link } from "react-router";
 import { useState } from "react";
 import { HomeMusics, ArtistListData, type ArtistType } from '../data'

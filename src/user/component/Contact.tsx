@@ -1,5 +1,4 @@
 import { Divider, Link, List, ListItem, ListItemText } from '@mui/material'
-import React from 'react'
 import { AboutUs, TermsOfService, PrivacyPolicy } from '../data'
 
 function Contact() {

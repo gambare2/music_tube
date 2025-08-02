@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import React from "react";
 import { usePlaylist } from "../../shared/context/Playlistcontext";
 import { Link } from "react-router-dom";
 
