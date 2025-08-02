@@ -8,7 +8,7 @@ import {
   InputLabel,
   OutlinedInput,
   IconButton,
-  Button
+  Button,
 } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
@@ -19,9 +19,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import AppRegistrationOutlinedIcon from '@mui/icons-material/AppRegistrationOutlined';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
 import BlobsBackground from '../../design/BlobsBackground';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
 
@@ -41,9 +40,11 @@ interface FormErrors {
   password?: string;
 }
 
+const defaultImage = "/profile_image.svg";
+
 const Register: React.FC = () => {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState<dayjs.Dayjs | null>(null);
   const [form, setForm] = useState<FormData>({
     name: '',
@@ -53,7 +54,8 @@ const Register: React.FC = () => {
     password: ''
   });
   const [formErrors, setFormErrors] = useState<FormErrors>({});
-
+  const [profile, setProfile] = useState<File | null>(null);
+  const [profilePreview, setProfilePreview] = useState<string>(defaultImage);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -90,161 +92,198 @@ const Register: React.FC = () => {
 
   const submitRegister = async (e: FormEvent) => {
     e.preventDefault();
-
     if (!validateForm()) return;
 
     try {
-      // http://localhost:5000/auth/register
-      // `${import.meta.env.VITE_API_URL}/auth/register`
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, form, {
         withCredentials: true,
       });
       toast.success(res.data.message);
-      setTimeout(() => {
-        navigate('/home');
-      }, 1000);
+      setTimeout(() => navigate('/home'), 1000);
     } catch (error: any) {
       console.error('Error:', error.response || error.message);
-      alert('Error: ' + (error.response?.data?.message || 'Request failed'));
+      toast.error(error.response?.data?.message || 'Registration failed');
+    }
+  };
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setProfile(file);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfilePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   return (
-    <form onSubmit={submitRegister}>
-      <BlobsBackground/>
-      <div className="flex justify-center items-center md:my-10 login-container ">
-        <div className="border  border-slate-600 bg-slate-200 w-2/5">
-          <div className="flex gap-5 items-center flex-col md:mb-10">
-          <span className="flex justify-center font8 font-bold text-2xl relative top-4 text-orange-300">User</span>
-            <span className="flex justify-center md:mb-4 font8 font-bold text-4xl text-orange-800">
-              <AppRegistrationOutlinedIcon sx={{ height: 42, width: 47, color: 'slateorange' }} />
-              Register
-            </span>
+    <>
+      <BlobsBackground />
+      <form onSubmit={submitRegister}>
+        <div className="flex justify-center items-center min-h-screen px-4 py-8">
+          <div className="bg-white border border-gray-300 rounded-xl shadow-md w-full max-w-md p-6">
+            <div className="flex flex-col items-center gap-y-6">
+              <div className="text-center">
+                <p className="text-orange-400 text-xl font-semibold">User</p>
+                <h1 className="text-3xl font-bold text-orange-800 flex items-center justify-center gap-2 mt-2">
+                  <AppRegistrationOutlinedIcon sx={{ height: 36, width: 36 }} />
+                  Register
+                </h1>
+              </div>
 
-            {/* Full Name */}
-            <TextField
-              sx={{ width: 260 }}
-              label="Full Name"
-              type="text"
-              name="name"
-              placeholder="Hritik Roshan"
-              onChange={handleChange}
-              error={!!formErrors.name}
-              helperText={formErrors.name}
-            />
+              {/* Profile Image Upload */}
+              <div className="flex flex-col items-center gap-2">
+                <label htmlFor="profile" className="cursor-pointer">
+                  <div className="w-28 h-28 rounded-full border-2 border-gray-400 flex items-center justify-center overflow-hidden hover:border-orange-500">
+                    {profilePreview ? (
+                      <img
+                        src={profilePreview}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-gray-400 text-sm">Upload</span>
+                    )}
+                  </div>
+                </label>
+                <input
+                  id="profile"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="hidden"
+                />
+              </div>
 
-            {/* Username */}
-            <TextField
-              label="Username"
-              name="username"
-              placeholder="hritik12"
-              onChange={handleChange}
-              error={!!formErrors.username}
-              helperText={formErrors.username}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccountCircle />
-                  </InputAdornment>
-                )
-              }}
-              variant="outlined"
-            />
-
-            {/* Date of Birth */}
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={['DatePicker']}>
-                <DatePicker
-                  label="Date of Birth"
-                  value={value}
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                    setForm((prev) => ({
-                      ...prev,
-                      DOB: newValue ? newValue.format('YYYY-MM-DD') : ''
-                    }));
-                  }}
-                  format='DD/MM/YYYY'
-                  slotProps={{
-                    textField: {
-                      error: !!formErrors.DOB,
-                      helperText: formErrors.DOB,
-                      placeholder:'DD/MM/YYYY'
-                    }
+              {/* Form Fields */}
+              <div className="flex flex-col gap-4 w-full">
+                <TextField
+                  fullWidth
+                  label="Name"
+                  name="name"
+                  variant="outlined"
+                  placeholder="Hritik Roshan"
+                  onChange={handleChange}
+                  error={!!formErrors.name}
+                  helperText={formErrors.name}
+                />
+                <TextField
+                  fullWidth
+                  label="Username"
+                  name="username"
+                  placeholder="hritik12"
+                  onChange={handleChange}
+                  error={!!formErrors.username}
+                  helperText={formErrors.username}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <AccountCircle />
+                      </InputAdornment>
+                    ),
                   }}
                 />
-              </DemoContainer>
-            </LocalizationProvider>
+                <TextField
+                  fullWidth
+                  label="E-mail"
+                  name="email"
+                  placeholder="hr@gmail.com"
+                  onChange={handleChange}
+                  error={!!formErrors.email}
+                  helperText={formErrors.email}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <EmailOutlinedIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
 
-            {/* Email */}
-            <TextField
-              label="E-mail"
-              name="email"
-              placeholder="hr@gmail.com"
-              onChange={handleChange}
-              error={!!formErrors.email}
-              helperText={formErrors.email}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <EmailOutlinedIcon />
-                  </InputAdornment>
-                )
-              }}
-              variant="outlined"
-            />
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel htmlFor="password">Password</InputLabel>
+                  <OutlinedInput
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    onChange={handleChange}
+                    error={!!formErrors.password}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          onMouseUp={handleMouseUpPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Password"
+                  />
+                  {formErrors.password && (
+                    <p className="text-red-600 text-sm mt-1">{formErrors.password}</p>
+                  )}
+                </FormControl>
 
-            {/* Password */}
-            <FormControl variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password"
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                onChange={handleChange}
-                error={!!formErrors.password}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label={showPassword ? 'Hide password' : 'Show password'}
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      onMouseUp={handleMouseUpPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
-              />
-              {formErrors.password && (
-                <p className="text-red-600 text-sm mt-1">{formErrors.password}</p>
-              )}
-            </FormControl>
-            <div className='flex justify-end md:mb-4'>
-              <span>Already have an account ? 
-              <Link to={'/user/login'} className='text-blue-600 md:mx-3 transition-all duration-500 ease-in-out hover:text-blue-800'>Login</Link>
-              </span>
-              
-            </div>
+                {/* Date Picker */}
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['DatePicker']}>
+                    <DatePicker
+                      label="Date of Birth"
+                      value={value}
+                      onChange={(newValue) => {
+                        setValue(newValue);
+                        setForm((prev) => ({
+                          ...prev,
+                          DOB: newValue ? newValue.format('YYYY-MM-DD') : '',
+                        }));
+                      }}
+                      format="DD/MM/YYYY"
+                      slotProps={{
+                        textField: {
+                          fullWidth: true,
+                          error: !!formErrors.DOB,
+                          helperText: formErrors.DOB,
+                          placeholder: 'DD/MM/YYYY',
+                        },
+                      }}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+              </div>
 
-            {/* Submit Button */}
-            <div className="flex justify-center">
+              {/* Link to Login */}
+              <div className="w-full text-right mt-2">
+                <p className="text-sm">
+                  Already have an account?{' '}
+                  <Link to="/user/login" className="text-blue-600 hover:text-blue-800 underline">
+                    Login
+                  </Link>
+                </p>
+              </div>
+
+              {/* Submit Button */}
               <Button
                 variant="contained"
-                sx={{ width: 147, backgroundColor: 'slateblue' }}
                 type="submit"
+                fullWidth
+                sx={{ backgroundColor: 'slateblue', mt: 2 }}
               >
                 Register
               </Button>
             </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+
+    </>
   );
 };
 
 export default Register;
+
 

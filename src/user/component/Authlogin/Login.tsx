@@ -1,88 +1,105 @@
-import { useState } from 'react'
-import React from 'react'
-import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
-import { FormControl, OutlinedInput, InputLabel, Button } from '@mui/material'
-import BlobsBackground from '../../design/BlobsBackground'
-import { toast } from 'react-toastify'
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { FormControl, OutlinedInput, InputLabel, Button } from '@mui/material';
+import BlobsBackground from '../../design/BlobsBackground';
+import { toast } from 'react-toastify';
 
 function Login() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({  usernameOrEmail: '', password: '' })
+  const [form, setForm] = useState({
+    usernameOrEmail: '',
+    password: ''
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-
-
+    setForm({ ...form, [e.target.name]: e.target.value.trim() });
+  };
 
   const handleForm = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, form, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/auth/login`,
+        form,
+        { withCredentials: true }
+      );
       toast.success(res.data.message);
-      setTimeout(() => {
-        navigate('/home');
-      }, 1000);
+      setTimeout(() => navigate('/home'), 1000);
     } catch (error) {
-      toast.error("Username/Email or Password is wrong")
+      toast.error("Username/Email or Password is wrong");
     }
-  }
+  };
+
   return (
     <>
+      <BlobsBackground />
       <form onSubmit={handleForm}>
-        <BlobsBackground />
+        <div className="container mx-auto flex justify-center items-center min-h-screen px-4">
+          <div className="border border-slate-300 bg-slate-100 w-full md:w-2/5 rounded-xl shadow-md p-6">
+            <h1 className="text-4xl font-bold text-center text-teal-500 mb-8">Login</h1>
 
-        <div className='container md-auto flex justify-center relative top-14 login-container '>
-          <div className='border border-slate-500 bg-slate-200 w-2/5'>
-            <h1 className='font-bold font8 text-center md:mx-4 text-4xl text-teal-400 '>
-              Login
-            </h1>
-            <div className='flex flex-wrap justify-center items-center md:py-10 flex-col'>
-              <FormControl sx={{ mt: 4 }}>
-                <InputLabel htmlFor="component-outlined">Username</InputLabel>
+            <div className="flex flex-col items-center gap-y-6">
+              <FormControl fullWidth>
+                <InputLabel htmlFor="usernameOrEmail">Username / Email</InputLabel>
                 <OutlinedInput
-                  id="component-outlined"
-                  placeholder="Username / E-mail"
-                  label=" usernameOrEmail"
-                  name=" usernameOrEmail"
-                  aria-describedby="component-error-text"
+                  id="usernameOrEmail"
+                  placeholder="Enter your username or email"
+                  name="usernameOrEmail"
+                  label="Username / Email"
                   onChange={handleChange}
+                  value={form.usernameOrEmail}
                 />
               </FormControl>
 
-              <FormControl sx={{ mt: 4 }}>
-                <InputLabel htmlFor="component-outlined">Password</InputLabel>
+              <FormControl fullWidth>
+                <InputLabel htmlFor="password">Password</InputLabel>
                 <OutlinedInput
-                  id="component-outlined"
-                  defaultValue=""
-                  placeholder='pass12@'
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  name="password"
                   label="Password"
-                  name='password'
-                  aria-describedby="component-error-text"
                   onChange={handleChange}
+                  value={form.password}
                 />
               </FormControl>
-              <div className='relative left-14 md:mb-4'>
 
+              <div className="w-full text-right">
                 <Link
-                  className='text-blue-700 md:mx-3 text-sm  '
-                  to={'/forgot-password'}>Forget Password ?</Link>
+                  to="/forgot-password"
+                  className="text-blue-700 text-sm hover:underline"
+                >
+                  Forgot Password?
+                </Link>
               </div>
-              <Button
-                type='submit'
-                variant='outlined'>
-                <span className='text-black'>Login</span>
+
+              <Button type="submit" variant="contained" fullWidth>
+                Login
               </Button>
-              <span>Not Register |
-                <Link to={'/user/register'}
-                  className='text-blue-600 md:mx-3 transition-all duration-500 ease-in-out hover:text-blue-800'>
+
+              <p className="text-sm">
+                Not registered?{" "}
+                <Link
+                  to="/user/register"
+                  className="text-blue-600 hover:text-blue-800"
+                >
                   Create account
                 </Link>
-              </span>
-              {/* <span className='border-b-2 border-slate-600 w-1/2 md:my-3 '></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </>
+  );
+}
+
+export default Login;
+
+
+
+ {/* <span className='border-b-2 border-slate-600 w-1/2 md:my-3 '></span>
               <Button
                 sx={{
                   backgroundColor: 'white',
@@ -107,14 +124,3 @@ function Login() {
                 <img src="icons8-facebook.svg" alt=""
                   className='md:ml-1 size-5' />
               </Button> */}
-
-            </div>
-
-          </div>
-        </div>
-      </form>
-    </>
-  )
-}
-
-export default Login

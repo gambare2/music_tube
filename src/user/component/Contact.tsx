@@ -1,15 +1,15 @@
-import { Divider, Link, List, ListItem, ListItemText } from '@mui/material'
-import { AboutUs, TermsOfService, PrivacyPolicy } from '../data'
+import { Divider, Link, List, ListItem, ListItemText } from '@mui/material';
+import { AboutUs, TermsOfService, PrivacyPolicy } from '../data';
 
 function Contact() {
   return (
-    <div>
-      <div className='flex flex-col justify-between gap-4'>
-        <h1 className='text-3xl md:text-4xl md:my-6 text-slate-400 font-bold font8 flex justify-center items-center'>Contact Us</h1>
-
-        <Divider variant='middle' />
+    <div className="px-4 py-8 md:px-10">
+      <div className="text-center mb-6">
+        <h1 className="text-3xl md:text-4xl text-slate-400 font-bold font8">Contact Us</h1>
+        <Divider variant="middle" className="mt-4" />
       </div>
-      <div className="flex flex-col md:flex-row justify-center items-left md:items-left gap-10 md:gap-20 mx-5 md:mx-10 my-8">
+
+      <div className="flex flex-col md:flex-row gap-10 md:gap-20">
         {/* About Us */}
         <div className="flex-1">
           <h2 className="font1 text-xl text-slate-700 mb-4">About Us</h2>
@@ -22,28 +22,20 @@ function Contact() {
                 className="flex flex-col items-start px-0"
               >
                 <div className="w-full">
-                  <p className="text-sm text-slate-600 text-left">{item.title}</p>
-                  <p className="text-sm font-semibold text-black underline text-left">
-                    {item.subtitle}
-                  </p>
+                  <p className="text-sm text-slate-600">{item.title}</p>
+                  <p className="text-sm font-semibold text-black underline">{item.subtitle}</p>
                 </div>
               </ListItem>
             ))}
           </List>
         </div>
 
-
-
         {/* Terms of Service */}
         <div className="flex-1">
           <h2 className="font1 text-xl text-slate-700 mb-4">Terms of Service</h2>
-          <List>
+          <List disablePadding>
             {TermsOfService.map((item, index) => (
-              <ListItem
-                key={index}
-                className="px-0"
-                disablePadding
-              >
+              <ListItem key={index} disablePadding className="px-0">
                 <ListItemText
                   primary={item.title}
                   primaryTypographyProps={{ className: 'text-sm text-slate-600' }}
@@ -56,13 +48,9 @@ function Contact() {
         {/* Privacy Policy */}
         <div className="flex-1">
           <h2 className="font1 text-xl text-slate-700 mb-4">Privacy Policy</h2>
-          <List>
+          <List disablePadding>
             {PrivacyPolicy.map((item, index) => (
-              <ListItem
-                key={index}
-                className="px-0"
-                disablePadding
-              >
+              <ListItem key={index} disablePadding className="px-0">
                 <ListItemText
                   primary={item.title}
                   primaryTypographyProps={{ className: 'text-sm text-slate-600' }}
@@ -72,20 +60,28 @@ function Contact() {
           </List>
         </div>
       </div>
-      <div className='flex flex-row justify-end  gap-4 md:mx-10 md:my-5'>
-        <Link href="/">
-          <img src="/icons8-facebook.svg" alt="Music Tube" className='size-5' />
+
+      {/* Social Media */}
+      <div className="flex justify-center md:justify-end gap-4 mt-10">
+        <Link href="/" aria-label="Facebook">
+          <img src="/icons8-facebook.svg" alt="Facebook" className="w-5 h-5" />
         </Link>
-        <Link href="/">
-          <img src="/instagram_icon.svg" alt="Music Tube" className='size-5' />
+        <Link href="/" aria-label="Instagram">
+          <img src="/instagram_icon.svg" alt="Instagram" className="w-5 h-5" />
         </Link>
-        <Link href="/">
-          <img src="/twitter_icons.svg" alt="Music Tube" className='size-5' />
+        <Link href="/" aria-label="Twitter">
+          <img src="/twitter_icons.svg" alt="Twitter" className="w-5 h-5" />
         </Link>
       </div>
-      <Divider variant='middle' />
-      <span >@2025 PriTube </span>
+
+      <Divider variant="middle" className="my-6" />
+
+      <p className="text-center text-xs text-slate-500">
+        © 2025 <span className="font-semibold">PriTube</span>. All rights reserved.
+      </p>
     </div>
-  )
+  );
 }
-export default Contact
+
+export default Contact;
+

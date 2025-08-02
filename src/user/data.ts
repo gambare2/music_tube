@@ -50,7 +50,7 @@ export const HomeMusics = [
   ]
 
  export type ArtistType = {
-    id: string;
+    id: number;
     name: string;
     thumbnail: string;
   };
