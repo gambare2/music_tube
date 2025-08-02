@@ -27,7 +27,7 @@ function Login() {
         navigate('/home');
       }, 1000);
     } catch (error) {
-      alert("Username/Email or Password is wrong")
+      toast.error("Username/Email or Password is wrong")
     }
   }
   return (
