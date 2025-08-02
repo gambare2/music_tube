@@ -23,7 +23,7 @@ import { Link } from 'react-router';
 import BlobsBackground from '../../design/BlobsBackground';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
 interface FormData {
   name: string;
@@ -44,7 +44,7 @@ interface FormErrors {
 const Register: React.FC = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [value, setValue] = useState<Dayjs | null>(null);
+  const [value, setValue] = useState<dayjs.Dayjs | null>(null);
   const [form, setForm] = useState<FormData>({
     name: '',
     username: '',
@@ -94,6 +94,8 @@ const Register: React.FC = () => {
     if (!validateForm()) return;
 
     try {
+      // http://localhost:5000/auth/register
+      // `${import.meta.env.VITE_API_URL}/auth/register`
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, form, {
         withCredentials: true,
       });
