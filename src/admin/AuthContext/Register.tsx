@@ -94,7 +94,9 @@ const Register: React.FC = () => {
     if (!validateForm()) return;
 
     try {
-      const res = await axios.post('http://localhost:5000/auth/register', form);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, form, {
+        withCredentials: true,
+      });
       toast.success(res.data.message);
       setTimeout(() => {
         navigate('/admin/dashboard');

@@ -21,7 +21,9 @@ import {toast} from 'react-toastify'
 const handleForm = async(e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault()
   try {
-    const res = await axios.post('http://localhost:5000/auth/login', form);
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, form, {
+      withCredentials: true,
+    });
     toast.success(res.data.message);
     setTimeout(() => {
       navigate('/admin/dashboard');
