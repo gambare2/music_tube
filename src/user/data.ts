@@ -49,11 +49,28 @@ export const HomeMusics = [
     }
   ]
 
- export type ArtistType = {
-    id: number;
+  export type AudiusArtist = {
+    id: string;
     name: string;
-    thumbnail: string;
+    handle: string;
+    location?: string;
+    profile_picture: {
+      medium: string;
+    };
   };
+  
+  export type AudiusTrack = {
+    id: string;
+    title: string;
+    stream_url: string;
+    artwork?: {
+      thumbnail: string;
+    };
+    user: {
+      name: string;
+    };
+  };
+  
   
 export  const ArtistListData = [
     {
