@@ -49,26 +49,19 @@ export const HomeMusics = [
     }
   ]
 
-  export type AudiusArtist = {
+ export type JamendoArtist = {
     id: string;
     name: string;
-    handle: string;
-    location?: string;
-    profile_picture: {
-      medium: string;
-    };
+    image: string;
+    shareurl: string;
   };
   
-  export type AudiusTrack = {
+ export type JamendoTrack = {
     id: string;
-    title: string;
-    stream_url: string;
-    artwork?: {
-      thumbnail: string;
-    };
-    user: {
-      name: string;
-    };
+    name: string;
+    album_image: string;
+    artist_name: string;
+    audio: string;
   };
   
   

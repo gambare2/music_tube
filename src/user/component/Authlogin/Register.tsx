@@ -30,6 +30,7 @@ interface FormData {
   DOB: string;
   email: string;
   password: string;
+  profile: string;
 }
 
 interface FormErrors {
@@ -38,6 +39,7 @@ interface FormErrors {
   DOB?: string;
   email?: string;
   password?: string;
+  profile?: string;
 }
 
 const defaultImage = "/profile_image.svg";
@@ -51,7 +53,8 @@ const Register: React.FC = () => {
     username: '',
     DOB: '',
     email: '',
-    password: ''
+    password: '',
+    profile: '',
   });
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [, setProfile] = useState<File | null>(null);
@@ -71,6 +74,7 @@ const Register: React.FC = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!form.name) errors.name = 'Name is required';
+    if (!form.profile) errors.profile = 'Profile is required';
     if (!form.username) errors.username = 'Username is required';
     if (!form.DOB) errors.DOB = 'Date of Birth is required';
     if (!form.email) errors.email = 'Email is required';
@@ -95,7 +99,10 @@ const Register: React.FC = () => {
     if (!validateForm()) return;
     
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, form, {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/auth/register`,
+        // "http://localhost:5000/auth/register",
+        form, {
         withCredentials: true,
       });
       toast.success(res.data.message);
