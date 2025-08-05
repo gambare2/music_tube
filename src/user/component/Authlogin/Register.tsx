@@ -74,7 +74,7 @@ const Register: React.FC = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!form.name) errors.name = 'Name is required';
-    // if (!form.profile) errors.profile = 'Profile is required';
+    if (!form.profile) errors.profile = 'Profile is required';
     if (!form.username) errors.username = 'Username is required';
     if (!form.DOB) errors.DOB = 'Date of Birth is required';
     if (!form.email) errors.email = 'Email is required';
