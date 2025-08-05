@@ -95,6 +95,7 @@ const Register: React.FC = () => {
   };
 
   const submitRegister = async (e: FormEvent) => {
+    console.log("Submitting form...", form);
     e.preventDefault();
     if (!validateForm()) return;
     
@@ -116,14 +117,23 @@ const Register: React.FC = () => {
     const file = e.target.files?.[0];
     if (file) {
       setProfile(file);
-
+  
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProfilePreview(reader.result as string);
+        const base64String = reader.result as string;
+  
+        setProfilePreview(base64String);
+  
+        // ✅ Set base64 into form.profile
+        setForm((prev) => ({
+          ...prev,
+          profile: base64String,
+        }));
       };
       reader.readAsDataURL(file);
     }
   };
+  
 
   return (
     <>
