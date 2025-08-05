@@ -57,10 +57,10 @@ function Home() {
     const fetchData = async () => {
       try {
         const artistRes = await fetch
-        (`${import.meta.env.VITE_API_URL}/audios/artists`);
+        (`${import.meta.env.VITE_API_URL}/api/audios/artists`);
         // ("http://localhost:5000/api/audios/artists");
         const trackRes = await fetch
-        (`${import.meta.env.VITE_API_URL}/audios/tracks`);
+        (`${import.meta.env.VITE_API_URL}/api/audios/tracks`);
         // ("http://localhost:5000/api/audios/tracks");
 
         const artistsData = await artistRes.json();
@@ -81,29 +81,6 @@ function Home() {
     fetchData();
   }, []);
 
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const artistRes = await fetch
-  //     ("http://localhost:5000/api/audios/artists");
-  //     // (`${import.meta.env.VITE_API_URL}/audios/artists`);
-  //     const trackRes = await fetch
-  //     ("http://localhost:5000/api/audios/tracks/trending");
-  //     // (`${import.meta.env.VITE_API_URL}/audios/tracks/trending`);
-
-
-  //     const artistsData = await artistRes.json();
-  //     const tracksData = await trackRes.json();
-
-  //     console.log("Artists Response:", artistsData);
-  //     console.log("Tracks Response:", tracksData);
-
-  //     setArtists(artistsData.data);
-  //     setTracks(tracksData.data);
-  //   };
-
-  //   fetchData();
-  // }, []);
   return (
     <div className="w-full">
       {/* Video Section */}
