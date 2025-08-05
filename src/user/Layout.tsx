@@ -14,7 +14,12 @@ import ListIcon from '@mui/icons-material/List';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { List, ListItem, ListItemText, Box, Drawer } from "@mui/material";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../shared/store/Store";
+import { logout } from "../shared/slice/AuthSlice";
+import { toast } from "react-toastify";
+
 
 const isLoggedIn = true;
 const drawerWidth = 200;
@@ -22,9 +27,9 @@ const drawerWidth = 200;
 const ProfileMenu = isLoggedIn ? [
     { name: 'Profile', path: '/profile', icon: <Person2Icon /> },
     { name: 'Settings', path: '/settings', icon: <SettingsIcon /> },
-    { name: 'Login', path: '/user/login', icon: <LoginIcon /> },
-] : [
     { name: 'Logout', path: '/login', icon: <LogoutIcon /> },
+] : [
+    { name: 'Login', path: '/user/login', icon: <LoginIcon /> },
 ];
 
 const Navbarcomponent = [
@@ -42,11 +47,24 @@ const PlaylistMenu = [
 function Layout() {
     const [isOpen, setIsOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
+    const user = useSelector((state: RootState) => state.auth.user) as {
+        profile: string;
+        name: string;
+        email: string;
+      } | null;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const toggleMenu = () => setIsOpen(prev => !prev);
     const handleDrawerClose = () => {
         setIsClosing(true);
         setIsOpen(false);
+    };
+
+    const handleLogout = () => {
+        dispatch(logout());
+        setTimeout(() => navigate('/login'), 1000);
+        toast.success('Logged out successfully');
     };
 
     const drawer = (
@@ -124,7 +142,7 @@ function Layout() {
                         <NotificationsNoneIcon className="size-8 cursor-pointer" />
                         <input
                             type="image"
-                            src="/Avatar_profile.svg"
+                            src={user?.profile || '/Avatar_profile.svg'}
                             alt="profile"
                             className="size-8 rounded-full cursor-pointer"
                             onClick={toggleMenu}
@@ -135,11 +153,12 @@ function Layout() {
                                 className="flex flex-col gap-4 absolute top-16 right-2 text-left bg-slate-400 text-white py-4 pr-4 pl-2 min-w-[150px] rounded shadow-lg z-50"
                             >
                                 {ProfileMenu.map((item, index) => (
-                                    <div key={index}>
+                                    <div key={index} onClick={item.name === 'Logout' ? handleLogout : undefined}>
                                         <Link to={item.path}>{item.icon} {item.name}</Link>
                                         {index < ProfileMenu.length - 1 && <Divider className="!bg-white my-4" />}
                                     </div>
                                 ))}
+
                             </div>
                         )}
                     </div>
