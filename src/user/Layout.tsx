@@ -27,7 +27,7 @@ const drawerWidth = 200;
 const ProfileMenu = isLoggedIn ? [
     { name: 'Profile', path: '/profile', icon: <Person2Icon /> },
     { name: 'Settings', path: '/settings', icon: <SettingsIcon /> },
-    { name: 'Logout', path: '/login', icon: <LogoutIcon /> },
+    { name: 'Logout', path: '/user/login', icon: <LogoutIcon /> },
 ] : [
     { name: 'Login', path: '/user/login', icon: <LoginIcon /> },
 ];

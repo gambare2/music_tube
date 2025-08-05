@@ -93,26 +93,58 @@ const Register: React.FC = () => {
   const handleMouseUpPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
-
   const submitRegister = async (e: FormEvent) => {
-    console.log("Submitting form...", form);
     e.preventDefault();
     if (!validateForm()) return;
-    
+  
+    const formData = new FormData();
+    formData.append("name", form.name);
+    formData.append("username", form.username);
+    formData.append("DOB", form.DOB);
+    formData.append("email", form.email);
+    formData.append("password", form.password);
+    if (form.profile) {
+      formData.append("profile", form.profile); 
+    }
+  
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/auth/register`,
-        // "http://localhost:5000/auth/register",
-        form, {
-        withCredentials: true,
-      });
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       toast.success(res.data.message);
-      setTimeout(() => navigate('/home'), 1000);
+      setTimeout(() => navigate("/home"), 1000);
     } catch (error: any) {
-      console.error('Error:', error.response || error.message);
-      toast.error(error.response?.data?.message || 'Registration failed');
+      console.error("Error:", error.response || error.message);
+      toast.error(error.response?.data?.message || "Registration failed");
     }
   };
+  
+  // const submitRegister = async (e: FormEvent) => {
+  //   console.log("Submitting form...", form);
+  //   e.preventDefault();
+  //   if (!validateForm()) return;
+    
+  //   try {
+  //     const res = await axios.post(
+  //       `${import.meta.env.VITE_API_URL}/auth/register`,
+  //       // "http://localhost:5000/auth/register",
+  //       form, {
+  //       withCredentials: true,
+  //     });
+  //     toast.success(res.data.message);
+  //     setTimeout(() => navigate('/home'), 1000);
+  //   } catch (error: any) {
+  //     console.error('Error:', error.response || error.message);
+  //     toast.error(error.response?.data?.message || 'Registration failed');
+  //   }
+  // };
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
