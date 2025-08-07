@@ -63,7 +63,7 @@ function Layout() {
 
     const handleLogout = () => {
         dispatch(logout());
-        setTimeout(() => navigate('/login'), 1000);
+        setTimeout(() => navigate('/user/login'), 1000);
         toast.success('Logged out successfully');
     };
 
@@ -143,6 +143,9 @@ function Layout() {
                         <input
                             type="image"
                             src={user?.profile || '/Avatar_profile.svg'}
+                            onError={(e) => {
+                                e.currentTarget.src = '/Avatar_profile.svg';
+                            }}
                             alt="profile"
                             className="size-8 rounded-full cursor-pointer"
                             onClick={toggleMenu}
