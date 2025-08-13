@@ -2,7 +2,11 @@
 function Profile() {
   return (
     <div>
-      
+      <div>
+        <div>
+          <img src={user.profile} alt="profile" />
+        </div>
+      </div>
     </div>
   )
 }

@@ -104,13 +104,12 @@ const Register: React.FC = () => {
     formData.append("email", form.email);
     formData.append("password", form.password);
     if (form.profile) {
-      formData.append("profile", form.profile); 
+      formData.append("profile", form.profile);
     }
   
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/auth/register`,
-        // "http://localhost:5000/auth/register",
         formData,
         {
           withCredentials: true,
@@ -119,13 +118,23 @@ const Register: React.FC = () => {
           },
         }
       );
+  
       toast.success(res.data.message);
       setTimeout(() => navigate("/home"), 1000);
+  
     } catch (error: any) {
       console.error("Error:", error.response || error.message);
-      toast.error(error.response?.data?.message || "Registration failed");
+  
+      const { response } = error;
+      if (response?.status === 409 && response.data?.redirectToLogin) {
+        toast.warning(response.data.message); // show "User already exists. Please login."
+        setTimeout(() => navigate("/login"), 1500);
+      } else {
+        toast.error(response?.data?.message || "Registration failed");
+      }
     }
   };
+  
   
   // const submitRegister = async (e: FormEvent) => {
   //   console.log("Submitting form...", form);
