@@ -4,7 +4,7 @@ import React from "react";
 
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAuth();
-  if (!user || user.role !== "user") return <Navigate to="/login" />;
+  if (!user || user.role !== "user") return <Navigate to="/user/login" />;
   return children;
 };
 

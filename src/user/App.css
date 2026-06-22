@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Exile&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Henny+Penny&family=Kaushan+Script&family=Poetsen+One&family=Road+Rage&family=Yesteryear&display=swap');
 
-:root{
+:root {
   margin-top: 0;
 }
 
@@ -18,42 +18,52 @@ select:-webkit-autofill:focus {
   -webkit-text-fill-color: #1f2937 !important;
   transition: background-color 5000s ease-in-out 0s;
 }
+
 .font1 {
   font-family: "Poetsen One", sans-serif;
 }
+
 .font2 {
   font-family: "Exile", system-ui;
 }
+
 .font3 {
   font-family: "Yesteryear", cursive;
 
 }
+
 .font4 {
   font-family: "Henny Penny", system-ui;
 
 }
+
 .font5 {
   font-family: "Road Rage", sans-serif;
 
 }
+
 .font6 {
   font-family: "Kaushan Script", cursive;
 
 }
-.font7{
+
+.font7 {
   font-family: "Google Sans Code", monospace;
 
 }
+
 .font8 {
   font-family: "Audiowide", sans-serif;
 
 }
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
-  -ms-overflow-style: none;  
-  scrollbar-width: none;    
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 
@@ -69,11 +79,219 @@ select:-webkit-autofill:focus {
     transform: translateY(0);
   }
 }
+
 @keyframes slideOut {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
 }
 
 .animate-slide-out {
   animation: slideOut 300ms ease-in-out;
+}
+
+/* ==========================================
+   THEME VARIABLES & OVERRIDES
+   ========================================== */
+
+:root {
+  --bg-main: #0F0F0F;
+  --bg-sidebar: #000000;
+  --bg-card: #181818;
+  --text-main: #FFFFFF;
+  --text-secondary: #B3B3B3;
+  --border-main: #181818;
+  --border-secondary: #282828;
+}
+
+html[data-theme='light'] {
+  --bg-main: #F9F9F9;
+  --bg-sidebar: #F0F0F0;
+  --bg-card: #e89090;
+  --text-main: #0F0F0F;
+  --text-secondary: #555555;
+  --border-main: #E5E5E5;
+  --border-secondary: #D4D4D4;
+}
+
+/* Base Body Sync */
+html[data-theme='light'] body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+/* Dynamic Classes Skinning for Light Theme */
+html[data-theme='light'] .min-h-screen {
+  background-color: var(--bg-main) !important;
+  color: var(--text-main) !important;
+}
+
+html[data-theme='light'] .bg-black {
+  background-color: var(--bg-sidebar) !important;
+}
+
+html[data-theme='light'] .bg-\[\#0F0F0F\] {
+  background-color: var(--bg-main) !important;
+}
+
+html[data-theme='light'] .bg-\[\#0F0F0F\]\/80 {
+  background-color: rgba(249, 249, 249, 0.8) !important;
+}
+
+html[data-theme='light'] .bg-\[\#0F0F0F\]\/50 {
+  background-color: rgba(249, 249, 249, 0.5) !important;
+}
+
+html[data-theme='light'] .bg-\[\#181818\] {
+  background-color: var(--bg-card) !important;
+}
+
+html[data-theme='light'] .bg-\[\#181818\]\/40 {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+html[data-theme='light'] .bg-\[\#181818\]\/60 {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+html[data-theme='light'] .bg-\[\#181818\]\/95 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-top-color: var(--border-secondary) !important;
+}
+
+html[data-theme='light'] .bg-neutral-900 {
+  background-color: #E2E8F0 !important;
+  /* slate-200 */
+}
+
+html[data-theme='light'] .bg-neutral-800 {
+  background-color: #CBD5E1 !important;
+  /* slate-300 */
+}
+
+html[data-theme='light'] .bg-neutral-800\/50 {
+  background-color: rgba(203, 213, 225, 0.5) !important;
+}
+
+html[data-theme='light'] .hover\:bg-neutral-800\/50:hover {
+  background-color: rgba(203, 213, 225, 0.5) !important;
+}
+
+html[data-theme='light'] .bg-neutral-900\/60 {
+  background-color: rgba(226, 232, 240, 0.6) !important;
+}
+
+html[data-theme='light'] .bg-neutral-900\/10 {
+  background-color: rgba(226, 232, 240, 0.15) !important;
+}
+
+html[data-theme='light'] .hover\:bg-neutral-800:hover {
+  background-color: #E2E8F0 !important;
+}
+
+html[data-theme='light'] .hover\:bg-neutral-900\/60:hover {
+  background-color: rgba(226, 232, 240, 0.8) !important;
+}
+
+html[data-theme='light'] .hover\:bg-\[\#181818\]:hover {
+  background-color: var(--bg-card) !important;
+}
+
+html[data-theme='light'] .hover\:bg-\[\#282828\]:hover {
+  background-color: #E2E8F0 !important;
+}
+
+html[data-theme='light'] .group:hover .group-hover\:bg-neutral-900 {
+  background-color: #E2E8F0 !important;
+}
+
+/* Text Overrides */
+html[data-theme='light'] .text-white {
+  color: var(--text-main) !important;
+}
+
+html[data-theme='light'] .text-\[\#B3B3B3\] {
+  color: var(--text-secondary) !important;
+}
+
+html[data-theme='light'] .hover\:text-white:hover {
+  color: var(--text-main) !important;
+}
+
+html[data-theme='light'] .text-neutral-400 {
+  color: #4B5563 !important;
+  /* gray-600 */
+}
+
+html[data-theme='light'] .text-neutral-500 {
+  color: #6B7280 !important;
+  /* gray-500 */
+}
+
+/* Border Overrides */
+html[data-theme='light'] .border-\[\#181818\] {
+  border-color: var(--border-main) !important;
+}
+
+html[data-theme='light'] .border-\[\#181818\]\/40 {
+  border-color: rgba(229, 229, 229, 0.4) !important;
+}
+
+html[data-theme='light'] .border-\[\#282828\] {
+  border-color: var(--border-secondary) !important;
+}
+
+html[data-theme='light'] .border-neutral-900 {
+  border-color: var(--border-main) !important;
+}
+
+html[data-theme='light'] .border-neutral-800 {
+  border-color: var(--border-secondary) !important;
+}
+
+html[data-theme='light'] .border-neutral-700\/50 {
+  border-color: rgba(209, 213, 219, 0.5) !important;
+}
+
+html[data-theme='light'] .border-neutral-700 {
+  border-color: var(--border-secondary) !important;
+}
+
+html[data-theme='light'] .divider-\[\#282828\] {
+  background-color: var(--border-secondary) !important;
+}
+
+/* Gradients */
+html[data-theme='light'] .from-neutral-800 {
+  --tw-gradient-from: #CBD5E1 !important;
+  --tw-gradient-to: rgba(203, 213, 225, 0) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+html[data-theme='light'] .to-neutral-950 {
+  --tw-gradient-to: #F1F5F9 !important;
+}
+
+html[data-theme='light'] .from-green-900\/60 {
+  --tw-gradient-from: rgba(74, 222, 128, 0.2) !important;
+  --tw-gradient-to: rgba(74, 222, 128, 0) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+/* Specific Material UI input field fixes under light theme */
+html[data-theme='light'] input {
+  color: #0F0F0F !important;
+}
+
+html[data-theme='light'] .MuiInputBase-root {
+  background-color: #FFFFFF !important;
+  color: #0F0F0F !important;
+}
+
+html[data-theme='light'] .MuiFormLabel-root {
+  color: #555555 !important;
 }

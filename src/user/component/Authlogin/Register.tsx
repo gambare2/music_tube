@@ -30,7 +30,6 @@ interface FormData {
   DOB: string;
   email: string;
   password: string;
-  profile: string;
 }
 
 interface FormErrors {
@@ -39,10 +38,8 @@ interface FormErrors {
   DOB?: string;
   email?: string;
   password?: string;
-  profile?: string;
 }
 
-const defaultImage = "/profile_image.svg";
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -54,11 +51,9 @@ const Register: React.FC = () => {
     DOB: '',
     email: '',
     password: '',
-    profile: '',
+
   });
   const [formErrors, setFormErrors] = useState<FormErrors>({});
-  const [, setProfile] = useState<File | null>(null);
-  const [profilePreview, setProfilePreview] = useState<string>(defaultImage);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +69,6 @@ const Register: React.FC = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!form.name) errors.name = 'Name is required';
-    if (!form.profile) errors.profile = 'Profile is required';
     if (!form.username) errors.username = 'Username is required';
     if (!form.DOB) errors.DOB = 'Date of Birth is required';
     if (!form.email) errors.email = 'Email is required';
@@ -103,9 +97,7 @@ const Register: React.FC = () => {
     formData.append("DOB", form.DOB);
     formData.append("email", form.email);
     formData.append("password", form.password);
-    if (form.profile) {
-      formData.append("profile", form.profile);
-    }
+
   
     try {
       const res = await axios.post(
@@ -120,7 +112,7 @@ const Register: React.FC = () => {
       );
   
       toast.success(res.data.message);
-      setTimeout(() => navigate("/home"), 1000);
+      setTimeout(() => navigate("/user/login"), 1000);
   
     } catch (error: any) {
       console.error("Error:", error.response || error.message);
@@ -128,53 +120,13 @@ const Register: React.FC = () => {
       const { response } = error;
       if (response?.status === 409 && response.data?.redirectToLogin) {
         toast.warning(response.data.message); // show "User already exists. Please login."
-        setTimeout(() => navigate("/login"), 1500);
+        setTimeout(() => navigate("/user/login"), 1500);
       } else {
         toast.error(response?.data?.message || "Registration failed");
       }
     }
   };
-  
-  
-  // const submitRegister = async (e: FormEvent) => {
-  //   console.log("Submitting form...", form);
-  //   e.preventDefault();
-  //   if (!validateForm()) return;
-    
-  //   try {
-  //     const res = await axios.post(
-  //       `${import.meta.env.VITE_API_URL}/auth/register`,
-  //       // "http://localhost:5000/auth/register",
-  //       form, {
-  //       withCredentials: true,
-  //     });
-  //     toast.success(res.data.message);
-  //     setTimeout(() => navigate('/home'), 1000);
-  //   } catch (error: any) {
-  //     console.error('Error:', error.response || error.message);
-  //     toast.error(error.response?.data?.message || 'Registration failed');
-  //   }
-  // };
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setProfile(file);
-  
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-  
-        setProfilePreview(base64String);
-  
-        // ✅ Set base64 into form.profile
-        setForm((prev) => ({
-          ...prev,
-          profile: base64String,
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+
   
 
   return (
@@ -192,29 +144,6 @@ const Register: React.FC = () => {
                 </h1>
               </div>
 
-              {/* Profile Image Upload */}
-              <div className="flex flex-col items-center gap-2">
-                <label htmlFor="profile" className="cursor-pointer">
-                  <div className="w-28 h-28 rounded-full border-2 border-gray-400 flex items-center justify-center overflow-hidden hover:border-orange-500">
-                    {profilePreview ? (
-                      <img
-                        src={profilePreview}
-                        alt="Preview"
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <span className="text-gray-400 text-sm">Upload</span>
-                    )}
-                  </div>
-                </label>
-                <input
-                  id="profile"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="hidden"
-                />
-              </div>
 
               {/* Form Fields */}
               <div className="flex flex-col gap-4 w-full">

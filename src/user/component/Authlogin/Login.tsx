@@ -4,9 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FormControl, OutlinedInput, InputLabel, Button } from '@mui/material';
 import BlobsBackground from '../../design/BlobsBackground';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../../shared/context/Authcontext';
 
 function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [form, setForm] = useState({
     usernameOrEmail: '',
     password: ''
@@ -26,6 +28,12 @@ function Login() {
         { withCredentials: true }
       );
       toast.success(res.data.message);
+      
+      // Store token and role in context + localStorage
+      if (res.data.token) {
+        login(res.data.token, 'user');
+      }
+      
       setTimeout(() => navigate('/home'), 1000);
     } catch (error) {
       toast.error("Username/Email or Password is wrong");
