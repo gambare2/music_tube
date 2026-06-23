@@ -28,12 +28,12 @@ function Login() {
         { withCredentials: true }
       );
       toast.success(res.data.message);
-      
+
       // Store token and role in context + localStorage
       if (res.data.token) {
         login(res.data.token, 'user');
       }
-      
+
       setTimeout(() => navigate('/home'), 1000);
     } catch (error) {
       toast.error("Username/Email or Password is wrong");
@@ -44,60 +44,147 @@ function Login() {
     <>
       <BlobsBackground />
       <form onSubmit={handleForm}>
-        <div className="container mx-auto flex justify-center items-center min-h-screen px-4">
-          <div className="border border-slate-300 bg-slate-100 w-full md:w-2/5 rounded-xl shadow-md p-6">
-            <h1 className="text-4xl font-bold text-center text-teal-500 mb-8">Login</h1>
+        <div className="min-h-screen flex">
 
-            <div className="flex flex-col items-center gap-y-6">
-              <FormControl fullWidth>
-                <InputLabel htmlFor="usernameOrEmail">Username / Email</InputLabel>
-                <OutlinedInput
-                  id="usernameOrEmail"
-                  placeholder="Enter your username or email"
-                  name="usernameOrEmail"
-                  label="Username / Email"
-                  onChange={handleChange}
-                  value={form.usernameOrEmail}
-                />
-              </FormControl>
+          {/* LEFT SIDE */}
+          <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-teal-500 via-cyan-600 to-blue-700 text-white p-12 flex-col justify-between">
 
-              <FormControl fullWidth>
-                <InputLabel htmlFor="password">Password</InputLabel>
-                <OutlinedInput
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  name="password"
-                  label="Password"
-                  onChange={handleChange}
-                  value={form.password}
-                />
-              </FormControl>
+            {/* Glow Effects */}
+            <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-white/10 blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-black/10 blur-3xl"></div>
 
-              <div className="w-full text-right">
-                <Link
-                  to="/forgot-password"
-                  className="text-blue-700 text-sm hover:underline"
-                >
-                  Forgot Password?
-                </Link>
+            {/* Logo */}
+            <div className="relative z-10">
+              <h2 className="text-4xl font-bold">
+                🎵 PriTube
+              </h2>
+            </div>
+
+            {/* Hero */}
+            <div className="relative z-10 max-w-lg">
+              <span className="bg-white/20 px-4 py-2 rounded-full text-sm backdrop-blur-md">
+                Music Streaming Platform
+              </span>
+
+              <h1 className="text-6xl font-extrabold mt-6 leading-tight">
+                Welcome Back
+              </h1>
+
+              <p className="mt-6 text-lg text-cyan-100">
+                Continue your musical journey. Access your playlists,
+                discover trending tracks, and connect with your favorite artists.
+              </p>
+
+              <div className="grid grid-cols-3 gap-4 mt-10">
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-4">
+                  <h3 className="text-3xl font-bold">10M+</h3>
+                  <p className="text-sm">Songs</p>
+                </div>
+
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-4">
+                  <h3 className="text-3xl font-bold">1M+</h3>
+                  <p className="text-sm">Artists</p>
+                </div>
+
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-4">
+                  <h3 className="text-3xl font-bold">500K+</h3>
+                  <p className="text-sm">Playlists</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Features */}
+            <div className="relative z-10 space-y-4">
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4">
+                🎧 Personalized Recommendations
               </div>
 
-              <Button type="submit" variant="contained" fullWidth>
-                Login
-              </Button>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4">
+                ❤️ Save Unlimited Favorites
+              </div>
 
-              <p className="text-sm">
-                Not registered?{" "}
-                <Link
-                  to="/user/register"
-                  className="text-blue-600 hover:text-blue-800"
-                >
-                  Create account
-                </Link>
-              </p>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4">
+                🎤 Follow Your Favorite Artists
+              </div>
             </div>
           </div>
+
+          {/* RIGHT SIDE */}
+          <div className="w-full lg:w-1/2 flex items-center justify-center px-6 bg-slate-50">
+
+            <div className="w-full max-w-md border border-slate-300 bg-white rounded-2xl shadow-xl p-8">
+
+              <h1 className="text-4xl font-bold text-center text-teal-500 mb-2">
+                Login
+              </h1>
+
+              <p className="text-center text-slate-500 mb-8">
+                Sign in to continue to PriTube
+              </p>
+
+              <div className="flex flex-col gap-6">
+
+                <FormControl fullWidth>
+                  <InputLabel htmlFor="usernameOrEmail">
+                    Username / Email
+                  </InputLabel>
+
+                  <OutlinedInput
+                    id="usernameOrEmail"
+                    name="usernameOrEmail"
+                    label="Username / Email"
+                    value={form.usernameOrEmail}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+
+                <FormControl fullWidth>
+                  <InputLabel htmlFor="password">
+                    Password
+                  </InputLabel>
+
+                  <OutlinedInput
+                    id="password"
+                    type="password"
+                    name="password"
+                    label="Password"
+                    value={form.password}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+
+                <div className="text-right">
+                  <Link
+                    to="/forgot-password"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Forgot Password?
+                  </Link>
+                </div>
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                  fullWidth
+                >
+                  Login
+                </Button>
+
+                <p className="text-center text-slate-600">
+                  Not registered?{" "}
+                  <Link
+                    to="/user/register"
+                    className="text-teal-600 font-semibold"
+                  >
+                    Create Account
+                  </Link>
+                </p>
+
+              </div>
+            </div>
+          </div>
+
         </div>
       </form>
     </>
@@ -105,31 +192,3 @@ function Login() {
 }
 
 export default Login;
-
-
-
- {/* <span className='border-b-2 border-slate-600 w-1/2 md:my-3 '></span>
-              <Button
-                sx={{
-                  backgroundColor: 'white',
-                  margin: 2
-                }}
-                variant='outlined'
-                onClick={handlelogin}
-              >
-                <span className='text-black font7 font-extralight'>Login with Google</span>
-                <img src="icons8-google.svg" alt=""
-                  className='size-5 md:ml-1' />
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: 'white',
-
-                }}
-                variant='outlined'
-                onClick={handlelogin}
-              >
-                <span className='text-black font7 font-extralight'>Login with facebook</span>
-                <img src="icons8-facebook.svg" alt=""
-                  className='md:ml-1 size-5' />
-              </Button> */}

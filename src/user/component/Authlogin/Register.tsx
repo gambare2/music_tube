@@ -18,9 +18,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import AppRegistrationOutlinedIcon from '@mui/icons-material/AppRegistrationOutlined';
 import { Link, useNavigate } from 'react-router-dom';
-import BlobsBackground from '../../design/BlobsBackground';
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
 
@@ -39,6 +37,36 @@ interface FormErrors {
   email?: string;
   password?: string;
 }
+
+const inputStyles = {
+  "& .MuiInputBase-input": {
+    color: "#000",
+  },
+
+  "& .MuiInputLabel-root": {
+    color: "#000",
+  },
+
+  "& .MuiSvgIcon-root": {
+    color: "#000",
+  },
+
+  "& .MuiInputAdornment-root": {
+    color: "#000",
+  },
+
+  "& .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#14b8a6",
+  },
+
+  "&:hover .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#14b8a6 !important",
+  },
+
+  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#14b8a6 !important",
+  },
+};
 
 
 const Register: React.FC = () => {
@@ -90,7 +118,7 @@ const Register: React.FC = () => {
   const submitRegister = async (e: FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
-  
+
     const formData = new FormData();
     formData.append("name", form.name);
     formData.append("username", form.username);
@@ -98,7 +126,7 @@ const Register: React.FC = () => {
     formData.append("email", form.email);
     formData.append("password", form.password);
 
-  
+
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/auth/register`,
@@ -110,13 +138,13 @@ const Register: React.FC = () => {
           },
         }
       );
-  
+
       toast.success(res.data.message);
       setTimeout(() => navigate("/user/login"), 1000);
-  
+
     } catch (error: any) {
       console.error("Error:", error.response || error.message);
-  
+
       const { response } = error;
       if (response?.status === 409 && response.data?.redirectToLogin) {
         toast.warning(response.data.message); // show "User already exists. Please login."
@@ -127,24 +155,85 @@ const Register: React.FC = () => {
     }
   };
 
-  
-
   return (
     <>
-      <BlobsBackground />
       <form onSubmit={submitRegister}>
-        <div className="flex justify-center items-center min-h-screen px-4 py-8">
-          <div className="bg-white border border-gray-300 rounded-xl shadow-md w-full max-w-md p-6">
-            <div className="flex flex-col items-center gap-y-6">
-              <div className="text-center">
-                <p className="text-orange-400 text-xl font-semibold">User</p>
-                <h1 className="text-3xl font-bold text-orange-800 flex items-center justify-center gap-2 mt-2">
-                  <AppRegistrationOutlinedIcon sx={{ height: 36, width: 36 }} />
-                  Register
-                </h1>
+        <div className="min-h-screen flex bg-slate-50">
+          {/* right side  */}
+          <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-teal-500 via-cyan-600 to-blue-700 text-white p-12 flex-col justify-between">
+
+            {/* Glow Effects */}
+            <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-white/10 blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-black/10 blur-3xl"></div>
+
+            {/* Logo */}
+            <div className="relative z-10">
+              <h2 className="text-4xl font-bold">
+                🎵 PriTube
+              </h2>
+            </div>
+
+            {/* Hero */}
+            <div className="relative z-10 max-w-lg">
+              <span className="bg-white/20 px-4 py-2  rounded-full text-sm backdrop-blur-md">
+                Music • Podcasts • Artists
+              </span>
+
+              <p className="mt-6 text-lg text-orange-100 leading-relaxed">
+                Explore millions of songs, build playlists,
+                follow artists, and enjoy a personalized
+                music experience tailored just for you.
+              </p>
+
+              <div className="grid grid-cols-3 gap-5 mt-10">
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4">
+                  <h3 className="text-3xl font-bold">10M+</h3>
+                  <p className="text-sm text-orange-100">Tracks</p>
+                </div>
+
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4">
+                  <h3 className="text-3xl font-bold">1M+</h3>
+                  <p className="text-sm text-orange-100">Artists</p>
+                </div>
+
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4">
+                  <h3 className="text-3xl font-bold">500K+</h3>
+                  <p className="text-sm text-orange-100">Playlists</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Features */}
+            <div className="relative z-10 space-y-4">
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4">
+                🎧 Personalized Recommendations
               </div>
 
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4">
+                ❤️ Save Unlimited Favorites
+              </div>
 
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4">
+                🎤 Follow Your Favorite Artists
+              </div>
+            </div>
+          </div>
+
+          {/* Left side  */}
+          <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+            <div className="w-full max-w-lg bg-white rounded-3xl shadow-xl p-8">
+
+              {/* Header */}
+              <div className="text-center mb-8">
+
+                <h2 className="text-4xl font-bold text-gray-800 mt-2">
+                  Create Account
+                </h2>
+
+                <p className="text-gray-500 mt-2">
+                  Start your musical journey today
+                </p>
+              </div>
               {/* Form Fields */}
               <div className="flex flex-col gap-4 w-full">
                 <TextField
@@ -156,6 +245,14 @@ const Register: React.FC = () => {
                   onChange={handleChange}
                   error={!!formErrors.name}
                   helperText={formErrors.name}
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#000",
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#000",
+                    },
+                  }}
                 />
                 <TextField
                   fullWidth
@@ -167,11 +264,12 @@ const Register: React.FC = () => {
                   helperText={formErrors.username}
                   InputProps={{
                     startAdornment: (
-                      <InputAdornment position="start">
-                        <AccountCircle />
+                      <InputAdornment position="start" >
+                        <AccountCircle sx={{ color: "#000" }} />
                       </InputAdornment>
                     ),
                   }}
+                  sx={inputStyles}
                 />
                 <TextField
                   fullWidth
@@ -184,9 +282,17 @@ const Register: React.FC = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <EmailOutlinedIcon />
+                        <EmailOutlinedIcon sx={{ color: "#000" }} />
                       </InputAdornment>
                     ),
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      color: "#000",
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#000",
+                    },
                   }}
                 />
 
@@ -198,6 +304,11 @@ const Register: React.FC = () => {
                     name="password"
                     onChange={handleChange}
                     error={!!formErrors.password}
+                    sx={{
+                      "& .MuiInputBase-input": {
+                        color: "#000",
+                      },
+                    }}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
@@ -205,6 +316,7 @@ const Register: React.FC = () => {
                           onMouseDown={handleMouseDownPassword}
                           onMouseUp={handleMouseUpPassword}
                           edge="end"
+                          sx={{ color: "#000" }}
                         >
                           {showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
@@ -233,10 +345,42 @@ const Register: React.FC = () => {
                       format="DD/MM/YYYY"
                       slotProps={{
                         textField: {
-                          fullWidth: true,
                           error: !!formErrors.DOB,
                           helperText: formErrors.DOB,
-                          placeholder: 'DD/MM/YYYY',
+                          placeholder: "DD/MM/YYYY",
+                          InputLabelProps: {
+                            shrink: true,
+                          },
+                          sx: {
+                            "& .MuiInputBase-input": {
+                              color: "#000",
+                            },
+
+                            "& .MuiSvgIcon-root": {
+                              color: "#000",
+                            },
+
+                            "& .MuiInputLabel-root": {
+                              color: "#14b8a6 !important",
+                            },
+
+                            "& .MuiInputLabel-root.Mui-focused": {
+                              color: "#14b8a6 !important",
+                            },
+
+                            "& .MuiOutlinedInput-notchedOutline": {
+                              borderColor: "#14b8a6 !important",
+                              borderWidth: "2px",
+                            },
+
+                            "&:hover .MuiOutlinedInput-notchedOutline": {
+                              borderColor: "#14b8a6 !important",
+                            },
+
+                            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                              borderColor: "#14b8a6 !important",
+                            },
+                          },
                         },
                       }}
                     />
@@ -245,8 +389,8 @@ const Register: React.FC = () => {
               </div>
 
               {/* Link to Login */}
-              <div className="w-full text-right mt-2">
-                <p className="text-sm">
+              <div className="w-full text-right my-2">
+                <p className="text-sm text-black">
                   Already have an account?{' '}
                   <Link to="/user/login" className="text-blue-600 hover:text-blue-800 underline">
                     Login
@@ -259,13 +403,22 @@ const Register: React.FC = () => {
                 variant="contained"
                 type="submit"
                 fullWidth
-                sx={{ backgroundColor: 'slateblue', mt: 2 }}
+                sx={{
+                  background:
+                    "linear-gradient(135deg, rgb(20 184 166), rgb(8 145 178), rgb(29 78 216))",
+                  "&:hover": {
+                    background:
+                      "linear-gradient(135deg, rgb(15 118 110), rgb(14 116 144), rgb(30 64 175))",
+                  },
+                }}
               >
-                Register
+                <span className='text-white'>Register</span>
               </Button>
             </div>
           </div>
         </div>
+        {/* <div className="flex justify-center items-center min-h-screen px-4 py-8">
+        </div> */}
       </form>
 
     </>

@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
-import { IconButton } from '@mui/material';
 
 const ArtistDiscovery: React.FC = () => {
   const navigate = useNavigate();

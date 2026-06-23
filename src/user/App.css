@@ -93,205 +93,284 @@ select:-webkit-autofill:focus {
 .animate-slide-out {
   animation: slideOut 300ms ease-in-out;
 }
-
 /* ==========================================
-   THEME VARIABLES & OVERRIDES
-   ========================================== */
+   THEME DESIGN
+========================================== */
 
 :root {
+  /* Dark Theme (Default) */
   --bg-main: #0F0F0F;
   --bg-sidebar: #000000;
   --bg-card: #181818;
+
   --text-main: #FFFFFF;
   --text-secondary: #B3B3B3;
+
   --border-main: #181818;
   --border-secondary: #282828;
+
+  --input-bg: #181818;
+  --input-text: #FFFFFF;
+  --label-color: #B3B3B3;
 }
 
-html[data-theme='light'] {
-  --bg-main: #F9F9F9;
-  --bg-sidebar: #F0F0F0;
-  --bg-card: #e89090;
-  --text-main: #0F0F0F;
-  --text-secondary: #555555;
-  --border-main: #E5E5E5;
-  --border-secondary: #D4D4D4;
+html[data-theme="light"] {
+  /* Light Theme */
+  --bg-main: #F9FAFB;
+  --bg-sidebar: #FFFFFF;
+  --bg-card: #F3F4F6;
+
+  --text-main: #111827;
+  --text-secondary: #4B5563;
+
+  --border-main: #E5E7EB;
+  --border-secondary: #D1D5DB;
+
+  --input-bg: #FFFFFF;
+  --input-text: #111827;
+  --label-color: #555555;
 }
 
-/* Base Body Sync */
-html[data-theme='light'] body {
+/* ==========================================
+   GLOBAL
+========================================== */
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.min-h-screen {
   background-color: var(--bg-main);
   color: var(--text-main);
 }
 
-/* Dynamic Classes Skinning for Light Theme */
-html[data-theme='light'] .min-h-screen {
-  background-color: var(--bg-main) !important;
-  color: var(--text-main) !important;
-}
+/* ==========================================
+   BACKGROUNDS
+========================================== */
 
-html[data-theme='light'] .bg-black {
+.bg-black {
   background-color: var(--bg-sidebar) !important;
 }
 
-html[data-theme='light'] .bg-\[\#0F0F0F\] {
+.bg-\[\#0F0F0F\] {
   background-color: var(--bg-main) !important;
 }
 
-html[data-theme='light'] .bg-\[\#0F0F0F\]\/80 {
-  background-color: rgba(249, 249, 249, 0.8) !important;
-}
-
-html[data-theme='light'] .bg-\[\#0F0F0F\]\/50 {
-  background-color: rgba(249, 249, 249, 0.5) !important;
-}
-
-html[data-theme='light'] .bg-\[\#181818\] {
+.bg-\[\#181818\] {
   background-color: var(--bg-card) !important;
 }
 
-html[data-theme='light'] .bg-\[\#181818\]\/40 {
-  background-color: rgba(255, 255, 255, 0.4) !important;
-}
-
-html[data-theme='light'] .bg-\[\#181818\]\/60 {
-  background-color: rgba(255, 255, 255, 0.6) !important;
-}
-
-html[data-theme='light'] .bg-\[\#181818\]\/95 {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  border-top-color: var(--border-secondary) !important;
-}
-
-html[data-theme='light'] .bg-neutral-900 {
-  background-color: #E2E8F0 !important;
-  /* slate-200 */
-}
-
-html[data-theme='light'] .bg-neutral-800 {
-  background-color: #CBD5E1 !important;
-  /* slate-300 */
-}
-
-html[data-theme='light'] .bg-neutral-800\/50 {
-  background-color: rgba(203, 213, 225, 0.5) !important;
-}
-
-html[data-theme='light'] .hover\:bg-neutral-800\/50:hover {
-  background-color: rgba(203, 213, 225, 0.5) !important;
-}
-
-html[data-theme='light'] .bg-neutral-900\/60 {
-  background-color: rgba(226, 232, 240, 0.6) !important;
-}
-
-html[data-theme='light'] .bg-neutral-900\/10 {
-  background-color: rgba(226, 232, 240, 0.15) !important;
-}
-
-html[data-theme='light'] .hover\:bg-neutral-800:hover {
-  background-color: #E2E8F0 !important;
-}
-
-html[data-theme='light'] .hover\:bg-neutral-900\/60:hover {
-  background-color: rgba(226, 232, 240, 0.8) !important;
-}
-
-html[data-theme='light'] .hover\:bg-\[\#181818\]:hover {
+.bg-neutral-900 {
   background-color: var(--bg-card) !important;
 }
 
-html[data-theme='light'] .hover\:bg-\[\#282828\]:hover {
-  background-color: #E2E8F0 !important;
+.bg-neutral-800 {
+  background-color: color-mix(in srgb, var(--bg-card) 85%, white 15%) !important;
 }
 
-html[data-theme='light'] .group:hover .group-hover\:bg-neutral-900 {
-  background-color: #E2E8F0 !important;
+/* Opacity Variants */
+
+.bg-\[\#0F0F0F\]\/80 {
+  background-color: color-mix(in srgb, var(--bg-main) 80%, transparent) !important;
 }
 
-/* Text Overrides */
-html[data-theme='light'] .text-white {
+.bg-\[\#0F0F0F\]\/50 {
+  background-color: color-mix(in srgb, var(--bg-main) 50%, transparent) !important;
+}
+
+.bg-\[\#181818\]\/40 {
+  background-color: color-mix(in srgb, var(--bg-card) 40%, transparent) !important;
+}
+
+.bg-\[\#181818\]\/60 {
+  background-color: color-mix(in srgb, var(--bg-card) 60%, transparent) !important;
+}
+
+.bg-\[\#181818\]\/95 {
+  background-color: color-mix(in srgb, var(--bg-card) 95%, transparent) !important;
+}
+
+/* ==========================================
+   TEXT COLORS
+========================================== */
+
+.text-white {
   color: var(--text-main) !important;
 }
 
-html[data-theme='light'] .text-\[\#B3B3B3\] {
+.text-\[\#B3B3B3\] {
   color: var(--text-secondary) !important;
 }
 
-html[data-theme='light'] .hover\:text-white:hover {
+.text-neutral-400,
+.text-neutral-500,
+.text-neutral-600 {
+  color: var(--text-secondary) !important;
+}
+
+.hover\:text-white:hover {
   color: var(--text-main) !important;
 }
 
-html[data-theme='light'] .text-neutral-400 {
-  color: #4B5563 !important;
-  /* gray-600 */
-}
+/* ==========================================
+   BORDERS
+========================================== */
 
-html[data-theme='light'] .text-neutral-500 {
-  color: #6B7280 !important;
-  /* gray-500 */
-}
-
-/* Border Overrides */
-html[data-theme='light'] .border-\[\#181818\] {
+.border-\[\#181818\],
+.border-neutral-900 {
   border-color: var(--border-main) !important;
 }
 
-html[data-theme='light'] .border-\[\#181818\]\/40 {
-  border-color: rgba(229, 229, 229, 0.4) !important;
-}
-
-html[data-theme='light'] .border-\[\#282828\] {
+.border-\[\#282828\],
+.border-neutral-800,
+.border-neutral-700 {
   border-color: var(--border-secondary) !important;
 }
 
-html[data-theme='light'] .border-neutral-900 {
-  border-color: var(--border-main) !important;
+.border-neutral-700\/50 {
+  border-color: color-mix(
+    in srgb,
+    var(--border-secondary) 50%,
+    transparent
+  ) !important;
 }
 
-html[data-theme='light'] .border-neutral-800 {
-  border-color: var(--border-secondary) !important;
+/* ==========================================
+   HOVER STATES
+========================================== */
+
+.hover\:bg-neutral-800:hover,
+.hover\:bg-\[\#282828\]:hover,
+.group:hover .group-hover\:bg-neutral-900 {
+  background-color: var(--bg-card) !important;
 }
 
-html[data-theme='light'] .border-neutral-700\/50 {
-  border-color: rgba(209, 213, 219, 0.5) !important;
+.hover\:bg-\[\#181818\]:hover {
+  background-color: var(--bg-card) !important;
 }
 
-html[data-theme='light'] .border-neutral-700 {
-  border-color: var(--border-secondary) !important;
-}
+/* ==========================================
+   DIVIDERS
+========================================== */
 
-html[data-theme='light'] .divider-\[\#282828\] {
+.divider-\[\#282828\] {
   background-color: var(--border-secondary) !important;
 }
 
-/* Gradients */
-html[data-theme='light'] .from-neutral-800 {
-  --tw-gradient-from: #CBD5E1 !important;
-  --tw-gradient-to: rgba(203, 213, 225, 0) !important;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+/* ==========================================
+   GRADIENTS
+========================================== */
+
+.from-neutral-800 {
+  --tw-gradient-from: var(--bg-card) !important;
+  --tw-gradient-to: transparent !important;
 }
 
-html[data-theme='light'] .to-neutral-950 {
-  --tw-gradient-to: #F1F5F9 !important;
+.to-neutral-950 {
+  --tw-gradient-to: var(--bg-main) !important;
 }
 
-html[data-theme='light'] .from-green-900\/60 {
-  --tw-gradient-from: rgba(74, 222, 128, 0.2) !important;
-  --tw-gradient-to: rgba(74, 222, 128, 0) !important;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+.from-green-900\/60 {
+  --tw-gradient-from: rgba(74, 222, 128, 0.15) !important;
+  --tw-gradient-to: transparent !important;
 }
 
-/* Specific Material UI input field fixes under light theme */
-html[data-theme='light'] input {
-  color: #0F0F0F !important;
+/* ==========================================
+   MATERIAL UI
+========================================== */
+
+.MuiInputBase-root {
+  background-color: var(--input-bg) !important;
+  color: var(--input-text) !important;
 }
 
-html[data-theme='light'] .MuiInputBase-root {
-  background-color: #FFFFFF !important;
-  color: #0F0F0F !important;
+.MuiInputBase-input {
+  color: var(--input-text) !important;
 }
 
-html[data-theme='light'] .MuiFormLabel-root {
-  color: #555555 !important;
+.MuiFormLabel-root {
+  color: var(--label-color) !important;
+}
+
+/* Default Border */
+.MuiOutlinedInput-notchedOutline {
+  border-color: #14b8a6 !important;
+  border-width: 2px !important;
+}
+
+/* Hover Border */
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #14b8a6 !important;
+}
+
+/* Focus Border */
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #14b8a6 !important;
+}
+
+/* Error Border */
+.MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+  border-color: #ef4444 !important;
+}
+
+/* ==========================================
+   INPUTS
+========================================== */
+
+input,
+textarea,
+select {
+  color: var(--input-text);
+  background-color: var(--input-bg);
+}
+
+/* ==========================================
+   AUTOFILL FIX
+========================================== */
+
+html[data-theme="light"] input:-webkit-autofill,
+html[data-theme="light"] textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+
+html:not([data-theme="light"]) input:-webkit-autofill,
+html:not([data-theme="light"]) textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #181818 inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* ==========================================
+   SMOOTH THEME TRANSITIONS
+========================================== */
+
+* {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* Input text */
+.MuiInputBase-input {
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
+}
+
+/* Labels */
+.MuiInputLabel-root {
+  color: #000 !important;
+}
+
+/* Icons */
+.MuiSvgIcon-root {
+  color: #000 !important;
+}
+
+/* Placeholder */
+.MuiInputBase-input::placeholder {
+  color: #666 !important;
+  opacity: 1;
 }
